@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search</title>
+</head>
+<body>
+  <h1>Search</h1>
+  <form action="/search" method="get">
+    <input type="text" name="q" value="<%= query %>" placeholder="Search for items...">
+
+    <!-- Dropdown for selecting item type -->
+    <select name="type">
+      <option value="">All</option>
+      <option value="book" <%= type === 'book' ? 'selected' : '' %>>Books</option>
+      <option value="movie" <%= type === 'movie' ? 'selected' : '' %>>Movies</option>
+      <option value="product" <%= type === 'product' ? 'selected' : '' %>>Products</option>
+    </select>
+
+    <button type="submit">Search</button>
+  </form>
+
+  <% if (query || type) { %>
+    <h2>Results for "<%= query %>" (<%= type || 'All' %>):</h2>
+    <% if (results.length > 0) { %>
+      <ul>
+        <% results.forEach(result => { %>
+          <li><%= result.name %> (<%= result.type %>)</li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No results found.</p>
+    <% } %>
+  <% } %>
+</body>
+</html>
